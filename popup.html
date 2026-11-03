@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Brightspace Grades</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">
+      <img src="icons/icon32.png" width="20" height="20" alt="">
+      <h1>My Grades</h1>
+    </div>
+    <button id="refresh" class="icon-btn" type="button" title="Refresh grades" aria-label="Refresh grades"></button>
+  </header>
+
+  <div class="meta">
+    <span id="status" class="muted">Loading…</span>
+    <label class="switch" title="Include courses that have ended or not started">
+      <input type="checkbox" id="showPast"> Past courses
+    </label>
+  </div>
+
+  <div id="notice"></div>
+
+  <ul id="list" class="course-list" aria-label="Courses"></ul>
+
+  <footer class="footer">
+    <button id="openDashboard" class="btn btn-primary" type="button">Open full dashboard</button>
+  </footer>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

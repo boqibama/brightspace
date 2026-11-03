@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Grades Dashboard</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <img src="icons/icon48.png" width="28" height="28" alt="">
+        <div>
+          <h1>Grades Dashboard</h1>
+          <div id="subtitle" class="muted"></div>
+        </div>
+      </div>
+      <div class="actions">
+        <span id="status" class="muted"></span>
+        <button id="refresh" class="icon-btn" type="button" title="Refresh grades" aria-label="Refresh grades"></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="page">
+    <div class="toolbar">
+      <label class="switch" title="Include courses that have ended or not started">
+        <input type="checkbox" id="showPast"> Show past courses
+      </label>
+      <div class="toolbar-buttons">
+        <button id="expandAll" class="btn" type="button">Expand all</button>
+        <button id="collapseAll" class="btn" type="button">Collapse all</button>
+      </div>
+    </div>
+
+    <div id="notice"></div>
+
+    <section id="courses" class="courses" aria-label="Courses"></section>
+
+    <p class="privacy muted">
+      Data comes straight from your Brightspace account using your current login and is stored only in this browser.
+    </p>
+  </main>
+
+  <script type="module" src="dashboard.js"></script>
+</body>
+</html>

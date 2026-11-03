@@ -1,0 +1,160 @@
+/* --------------------------------------------------------------------------
+   Shared design tokens + components for the popup and the dashboard.
+   Colours switch automatically with your system's light/dark setting.
+   Tweak the variables in :root to restyle everything at once.
+   -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f1f3f6;
+  --border: #e3e6eb;
+  --text: #1a1d23;
+  --text-muted: #5f6672;
+  --accent: #3a5bd9;
+  --accent-hover: #2f4cc0;
+  --accent-text: #ffffff;
+  --focus: #3a5bd9;
+  --shadow: 0 1px 2px rgba(16, 24, 40, 0.06), 0 1px 3px rgba(16, 24, 40, 0.08);
+
+  /* Grade bands: text colour + tinted background */
+  --green-fg: #146c37;  --green-bg: #e2f4e8;  --green-bar: #23a058;
+  --yellow-fg: #745800; --yellow-bg: #fcf1c2; --yellow-bar: #e0b416;
+  --orange-fg: #974200; --orange-bg: #fde5d0; --orange-bar: #ec7f22;
+  --red-fg: #b0251b;    --red-bg: #fde3e0;    --red-bar: #e0473b;
+
+  --warn-bg: #fff6e0; --warn-border: #f1d58a;
+  --error-bg: #fdecea; --error-border: #f3b8b2;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111317;
+    --surface: #1a1d23;
+    --surface-2: #22262e;
+    --border: #2e333c;
+    --text: #e8eaee;
+    --text-muted: #9aa1ad;
+    --accent: #7b96ff;
+    --accent-hover: #93a9ff;
+    --accent-text: #0e1220;
+    --focus: #93a9ff;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+
+    --green-fg: #74dc9b;  --green-bg: rgba(46, 170, 96, 0.17);   --green-bar: #3fbf73;
+    --yellow-fg: #f1d260; --yellow-bg: rgba(222, 182, 34, 0.16); --yellow-bar: #e3bf32;
+    --orange-fg: #ffad6e; --orange-bg: rgba(240, 130, 40, 0.17); --orange-bar: #f08a36;
+    --red-fg: #ff8f86;    --red-bg: rgba(230, 72, 60, 0.18);     --red-bar: #ec5a4e;
+
+    --warn-bg: rgba(222, 170, 40, 0.12); --warn-border: rgba(222, 170, 40, 0.35);
+    --error-bg: rgba(230, 72, 60, 0.12); --error-border: rgba(230, 72, 60, 0.35);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 14px/1.45 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; color: inherit; }
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.icon { display: inline-flex; line-height: 0; }
+
+/* ----- Buttons ----- */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 8px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+}
+.btn:hover { background: var(--surface-2); }
+.btn-primary { background: var(--accent); border-color: var(--accent); color: var(--accent-text); }
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+.icon-btn {
+  display: inline-grid; place-items: center;
+  width: 32px; height: 32px;
+  border: 1px solid transparent; border-radius: var(--radius-sm);
+  background: transparent; color: var(--text-muted);
+  cursor: pointer;
+}
+.icon-btn:hover:not(:disabled) { background: var(--surface-2); color: var(--text); }
+.icon-btn:disabled { opacity: 0.55; cursor: default; }
+.icon-btn.is-spinning .icon { animation: spin 0.9s linear infinite; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) {
+  .icon-btn.is-spinning .icon, .spinner { animation-duration: 3s; }
+}
+
+/* ----- Toggle switch (checkbox) ----- */
+.switch { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; color: var(--text-muted); user-select: none; }
+.switch input { appearance: none; margin: 0; width: 30px; height: 18px; border-radius: 999px; background: var(--border); position: relative; cursor: pointer; transition: background 0.15s; }
+.switch input::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.25); transition: transform 0.15s; }
+.switch input:checked { background: var(--accent); }
+.switch input:checked::after { transform: translateX(12px); }
+
+/* ----- Grade pill ----- */
+.pill {
+  display: inline-flex; align-items: baseline; gap: 6px;
+  border-radius: 999px;
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.pill-md { padding: 3px 10px; font-size: 13px; }
+.pill-lg { padding: 5px 12px; font-size: 15px; }
+.pill-letter { font-weight: 700; opacity: 0.85; }
+.pill-muted { background: var(--surface-2); color: var(--text-muted); font-weight: 500; }
+.pill-neutral { background: var(--surface-2); color: var(--text); }
+
+.band-green  { background: var(--green-bg);  color: var(--green-fg); }
+.band-yellow { background: var(--yellow-bg); color: var(--yellow-fg); }
+.band-orange { background: var(--orange-bg); color: var(--orange-fg); }
+.band-red    { background: var(--red-bg);    color: var(--red-fg); }
+
+/* Coloured stripe on the left of a course row */
+[data-band="green"]  { --stripe: var(--green-bar); }
+[data-band="yellow"] { --stripe: var(--yellow-bar); }
+[data-band="orange"] { --stripe: var(--orange-bar); }
+[data-band="red"]    { --stripe: var(--red-bar); }
+
+/* ----- Notices ----- */
+.notice {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.notice strong { flex-basis: 100%; }
+.notice p { margin: 0 0 4px; flex-basis: 100%; color: var(--text-muted); }
+.notice-warn { background: var(--warn-bg); border-color: var(--warn-border); }
+.notice-error { background: var(--error-bg); border-color: var(--error-border); }
+
+.spinner {
+  width: 16px; height: 16px; border-radius: 50%;
+  border: 2px solid var(--border); border-top-color: var(--accent);
+  animation: spin 0.8s linear infinite;
+}
+
+.muted { color: var(--text-muted); }
+.empty { padding: 24px 16px; text-align: center; color: var(--text-muted); }
